@@ -1,0 +1,1 @@
+# __init__.py for pdf_extractor folder
