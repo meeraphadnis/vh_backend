@@ -1,3 +1,5 @@
+# validating_input.py
+
 from pydantic import BaseModel
 from typing import List
 
@@ -10,4 +12,5 @@ class LoanInput(BaseModel):
 class FinancialData(BaseModel):
     loans: List[LoanInput]
     monthly_income: float
-    monthly_expenses: float
+    #monthly_expenses: float
+
