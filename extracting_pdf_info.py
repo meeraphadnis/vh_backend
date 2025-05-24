@@ -1,17 +1,26 @@
 # extracting_pdf_info
 
 import os
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
+# Load environment variables from .env
 load_dotenv()
 
-def extract_financial_data_from_text(text: str) -> dict:
+def extract_financial_data_from_text(text: str) -> str:
     """
-    Sends raw financial aid text to OpenAI and returns structured financial data.
+    Uses OpenAI SDK v1+ to send text and receive structured financial data as JSON.
     """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY is missing. Please set it in your .env file.")
+
+    # Create OpenAI client
+    client = OpenAI(api_key=api_key)
+
+    # Prepare prompt
     prompt = f"""
-    Extract the following from this financial aid document and return JSON:
+    Extract and return the following financial information in valid JSON:
     - Tuition and fees
     - Room and board
     - Transportation
@@ -23,15 +32,8 @@ def extract_financial_data_from_text(text: str) -> dict:
     {text}
     """
 
-    # Get API key from environment
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY not found in environment. Please check your .env file.")
-
-    openai.api_key = api_key
-
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a financial data extractor."},
@@ -41,8 +43,8 @@ def extract_financial_data_from_text(text: str) -> dict:
             max_tokens=1000
         )
 
-        # Return the raw response content as a string
-        return response.choices[0].message["content"].strip()
+        return response.choices[0].message.content.strip()
 
     except Exception as e:
-        raise Ru
+        raise RuntimeError(f"OpenAI API call failed: {str(e)}")
+
