@@ -12,7 +12,7 @@ def generate_avalanche_plan(data: FinancialData):
     return _generate_repayment_schedule(loans, data, method="avalanche")
 
 def _generate_repayment_schedule(loans: List[LoanInput], data: FinancialData, method: str):
-    monthly_budget = data.monthly_income - data.monthly_expenses
+    monthly_budget = data.monthly_income
     month = 0
     total_interest = 0.0
     loan_balances = [{**loan.dict()} for loan in loans]
