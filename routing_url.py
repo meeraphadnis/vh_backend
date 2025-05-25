@@ -26,8 +26,10 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
         with pdfplumber.open(io.BytesIO(content)) as pdf:
             full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
             print("Extracted text length:", len(full_text))
-
-        return JSONResponse(content={"structured_data": "BWLFHskdajfkaj"})
+        with open("extracted_pdf_content.txt", "w", encoding="utf-8") as f:
+            f.write(full_text)
+    
+        return JSONResponse(content={"structured_data": full_text})
 
     except Exception as e:
         print("Error processing file:", str(e))
