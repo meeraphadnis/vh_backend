@@ -14,7 +14,7 @@ client = genai.Client(api_key=gemini_api_key_variable)
 def find_financial_aid_cost(text):
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents= f"Find the total cost of financial aid given from this file: {extracted_result}"
+        contents= f"Find the total cost of financial aid given from this file: {text}"
     )
     return response.text
 
