@@ -5,6 +5,7 @@ from validating_input import FinancialData
 from logic import generate_snowball_plan, generate_avalanche_plan
 from pdf_extractor.routes import router as pdf_router  # ✅ Include PDF routes
 from fastapi.responses import JSONResponse
+from test import find_financial_aid_cost
 import pdfplumber
 import io
 
@@ -28,14 +29,13 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
             print("Extracted text length:", len(full_text))
         with open("extracted_pdf_content.txt", "w", encoding="utf-8") as f:
             f.write(full_text)
-    
-        return JSONResponse(content={"structured_data": full_text})
-            
-        # save the text to a file that can be redirected and fed back into the AI
-        with open("extracted_pdf_content.txt", "w", encoding = "utf-8") as file:
-            file.write(full_text)
 
-        return JSONResponse(content={"structured_data": full_text})
+        summary = find_financial_aid_cost(full_text)
+    
+        return JSONResponse(content={
+            "structured_data": full_text,
+            "ai_summary" : summary
+            })
 
     except Exception as e:
         print("Error processing file:", str(e))
