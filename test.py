@@ -1,5 +1,7 @@
 from google import genai
 import convert_pdf_png
+from PIL import Image
+import io
 
 with open("gemini_api_key", "r") as f:
     gemini_api_key_variable = f.read()
@@ -21,14 +23,18 @@ response_two = client.models.generate_content(
 )
 
 
-
 response_three = client.models.generate_content(
     model="gemini-2.0-flash",
     contents= f"Only return back the information from the table: {response_two}" 
 )
 
+with open("page_converted.png", "rb") as f:
+    extracted_image = f.read()
 
-
+response_four = client.models.generate_content(
+    model="gemini-1.5-flash",
+    contents= f"Return all the numbers within the image: {extracted_image}" 
+)
 
 '''
 if response is None or not response.contents:
