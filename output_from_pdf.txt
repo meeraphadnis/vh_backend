@@ -1,3 +1,0 @@
-This is the first line of text on page 1.
-And here's some more text.
-Text on page 2 starts here.
