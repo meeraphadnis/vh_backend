@@ -1,4 +1,5 @@
 from google import genai
+import convert_pdf_png
 
 with open("gemini_api_key", "r") as f:
     gemini_api_key_variable = f.read()
@@ -16,8 +17,18 @@ response = client.models.generate_content(
 
 response_two = client.models.generate_content(
     model="gemini-2.0-flash",
-    contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}"
+    contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}" 
 )
+
+
+
+response_three = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents= f"Only return back the information from the table: {response_two}" 
+)
+
+
+
 
 '''
 if response is None or not response.contents:
@@ -27,5 +38,6 @@ else:
     print(response.text)
 '''
 
-#print(response.text)
-print(response_two.text)
+#print(response_two.text)
+# print(response_three.text)
+print(response_four.text)

@@ -23,3 +23,6 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to process file: {str(e)}")
+
+# create a route for test
+# then test by opening this in our browser with local host (extract API)
