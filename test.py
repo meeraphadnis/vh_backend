@@ -1,6 +1,4 @@
 from google import genai
-import convert_pdf_png
-#import requests
 
 
 with open("gemini_api_key", "r") as f:
