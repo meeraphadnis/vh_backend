@@ -26,12 +26,11 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
         content = await file.read()
         with pdfplumber.open(io.BytesIO(content)) as pdf:
             full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
-            print("Extracted text length:", len(full_text))
         with open("extracted_pdf_content.txt", "w", encoding="utf-8") as f:
             f.write(full_text)
 
         summary = find_financial_aid_cost(full_text)
-    
+
         return JSONResponse(content={
             "structured_data": full_text,
             "ai_summary" : summary
