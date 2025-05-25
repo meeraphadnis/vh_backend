@@ -5,3 +5,5 @@ pdfplumber
 openai
 python-dotenv
 python-multipart
+google-generativeai
+pdf2image
