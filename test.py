@@ -14,28 +14,28 @@ with open(finances_text_path, "r", encoding="utf-8") as file:
 
 response = client.models.generate_content(
     model="gemini-2.0-flash",
-    contents= f"Print out the contents of this file: {extracted_result}"
+    contents= f"Find the total cost of financial aid given from this file: {extracted_result}"
 )
 
-response_two = client.models.generate_content(
-    model="gemini-2.0-flash",
-    contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}" 
-)
+# response_two = client.models.generate_content(
+#     model="gemini-2.0-flash",
+#     contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}" 
+# )
 
-response_three = client.models.generate_content(
-    model="gemini-2.0-flash",
-    contents= f"Only return back the information from the table: {response_two}" 
-)
+# response_three = client.models.generate_content(
+#     model="gemini-2.0-flash",
+#     contents= f"Only return back the information from the table: {response_two}" 
+# )
 
 
-my_image = client.files.upload(file = "page_converted.png")
+# my_image = client.files.upload(file = "page_converted.png")
 
-response_four = client.models.generate_content(
-    model="gemini-2.0-flash",
-    contents=[my_image, "Return the numbers from this image."],
-)
+# response_four = client.models.generate_content(
+#     model="gemini-2.0-flash",
+#     contents=[my_image, "Return the numbers from this image."],
+# )
 
-# print(response.text)
+print(response.text)
 # print(response_two.text)
 # print(response_three.text)
-print(response_four.text)
+# print(response_four.text)
