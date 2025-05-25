@@ -1,5 +1,6 @@
 from google import genai
 import convert_pdf_png
+#import requests
 
 
 with open("gemini_api_key", "r") as f:
@@ -15,15 +16,11 @@ response = client.models.generate_content(
     model="gemini-2.0-flash",
     contents= f"Print out the contents of this file: {extracted_result}"
 )
-    #callback to the next stage
 
 response_two = client.models.generate_content(
     model="gemini-2.0-flash",
     contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}" 
 )
-
-
-
 
 response_three = client.models.generate_content(
     model="gemini-2.0-flash",
@@ -31,24 +28,12 @@ response_three = client.models.generate_content(
 )
 
 
-# with open("page_converted.png", "rb") as f:
-#     extracted_image = f.read()
-
 my_image = client.files.upload(file = "page_converted.png")
 
 response_four = client.models.generate_content(
     model="gemini-2.0-flash",
     contents=[my_image, "Return the numbers from this image."],
 )
-
-
-'''
-if response is None or not response.contents:
-    print("No response received or response is empty.")
-else:
-    print("\n Illustrative Example of Standard Repayment Plan:")
-    print(response.text)
-'''
 
 # print(response.text)
 # print(response_two.text)
