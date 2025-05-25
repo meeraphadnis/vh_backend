@@ -1,12 +1,38 @@
 # routing_url.py
 
-from fastapi import APIRouter
+from fastapi import APIRouter, File, UploadFile, HTTPException
 from validating_input import FinancialData
 from logic import generate_snowball_plan, generate_avalanche_plan
 from pdf_extractor.routes import router as pdf_router  # ✅ Include PDF routes
+from fastapi.responses import JSONResponse
+import pdfplumber
+import io
 
 router = APIRouter()
 
+@router.get("/")
+async def root():
+    return {"message": "Welcome to the PDF Extraction API. Use /extract-ai to upload a PDF file."}
+
+@router.post("/extract-ai")
+async def extract_pdf_ai(file: UploadFile = File(...)):
+    print("Received file:")
+    
+    if not file.filename.endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Only PDF files are allowed.")
+
+    try:
+        content = await file.read()
+        with pdfplumber.open(io.BytesIO(content)) as pdf:
+            full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+            print("Extracted text length:", len(full_text))
+
+        return JSONResponse(content={"structured_data": "BWLFHskdajfkaj"})
+
+    except Exception as e:
+        print("Error processing file:", str(e))
+        raise HTTPException(status_code=500, detail=f"Failed to process file: {str(e)}")
+    
 @router.post("/repayment-plan")
 def repayment(data: FinancialData):
     snowball = generate_snowball_plan(data)
@@ -16,4 +42,4 @@ def repayment(data: FinancialData):
         "avalanche": avalanche
     }
 
-router.include_router(pdf_router, prefix="/pdf", tags=["PDF Extraction"])
+# router.include_router(pdf_router, prefix="/pdf", tags=["PDF Extraction"])
