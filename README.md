@@ -35,25 +35,45 @@ This is the backend service for a Loan Repayment Planner app. We have used Fast 
 VH_BACKEND/
 │
 ├── .env # API keys and environment config
+
 ├── main.py # FastAPI app entry point
+
 ├── routing_url.py # All routes including /repayment-plan, /pdf/extract
+
 ├── logic.py # Core repayment plan logic (snowball & avalanche)
+
 ├── validating_input.py # Pydantic models for validation
+
 ├── extracting_pdf_info.py # Calls OpenAI/Gemini to extract structured data from PDFs
+
 ├── pdf_extractor.py # Alternate PDF extraction logic
+
 ├── convert_pdf_png.py # Optional: Convert PDF to image
+
 ├── gemini_api_key # (Temporary) key store
+
 ├── extracted_pdf_content.txt# Sample output for debugging
+
 ├── test.py # Testing endpoint or experiments
+
 │
+
 ├── pdf_extractor/ # PDF-related FastAPI routes
+
 │
+
 ├── sample-aid.pdf # Test PDFs
+
 ├── sample.pdf
+
 ├── page_converted.png # Image conversion test
+
 │
+
 ├── requirements.txt # Python dependencies
+
 ├── package.json # Node-related test scripts (if any)
+
 └── README.md
 
 📦 Installation
