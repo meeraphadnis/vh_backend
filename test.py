@@ -14,6 +14,11 @@ response = client.models.generate_content(
     contents= f"Print out the contents of this file: {extracted_result}"
 )
 
+response_two = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents= f"Return the numbers with a dollar sign in front of them and what that number means: {extracted_result}"
+)
+
 '''
 if response is None or not response.contents:
     print("No response received or response is empty.")
@@ -22,4 +27,5 @@ else:
     print(response.text)
 '''
 
-print(response.text)
+#print(response.text)
+print(response_two.text)
