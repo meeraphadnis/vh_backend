@@ -4,7 +4,7 @@ from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 import pdfplumber
 import io
-from test import response # Assuming this function is defined in test.py
+from test import find_financial_aid_cost # Assuming this function is defined in test.py
 # from extracting_pdf_info import extract_financial_data_from_text
 
 router = APIRouter()
