@@ -2,7 +2,7 @@
 
 📘 Loan Repayment Planner – Backend
 
-This is the backend service for a Loan Repayment Planner app. Using the API of Google's LLM Gemini, it can take in PDFs of the student's financial aid statement and extract the necessary numerical values (total loan principal, total unmet need, etc.) to calculate the student's best suited loan repayment strategy.
+This is the backend service for a Loan Repayment Planner app. We have used Fast API and Python in this backend. Using the API of Google's LLM Gemini, it can take in PDFs of the student's financial aid statement and extract the necessary numerical values (total loan principal, total unmet need, etc.) to calculate the student's best suited loan repayment strategy.
 
 🚀 Features
 
