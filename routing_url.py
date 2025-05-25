@@ -30,6 +30,12 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
             f.write(full_text)
     
         return JSONResponse(content={"structured_data": full_text})
+            
+        # save the text to a file that can be redirected and fed back into the AI
+        with open("extracted_pdf_content.txt", "w", encoding = "utf-8") as file:
+            file.write(full_text)
+
+        return JSONResponse(content={"structured_data": full_text})
 
     except Exception as e:
         print("Error processing file:", str(e))
