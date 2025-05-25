@@ -17,7 +17,7 @@ def find_financial_aid_cost(text):
         extracted_result = file.read()
     response = client.models.generate_content(
         model="gemini-2.0-flash",
-        contents= f"Find the total cost of financial aid given from this file: {text}"
+        contents= f"Find the total cost of financial aid given from this file: {extracted_result}"
     )
     return response.text
 
