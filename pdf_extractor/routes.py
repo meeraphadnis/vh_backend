@@ -21,7 +21,10 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
             full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
             print(full_text)
         
-        ai_summary = find_financial_aid_cost(full_text)
+        with open("extracted_pdf_content.txt", "w", encoding = "utf-8") as file:
+            file.write(full_text)
+
+        ai_summary = find_financial_aid_cost("extracted_pdf_content.txt")
 
         # structured_data = extract_financial_data_from_text(full_text)
         return JSONResponse(content={

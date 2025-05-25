@@ -6,6 +6,7 @@ from logic import generate_snowball_plan, generate_avalanche_plan
 from pdf_extractor.routes import router as pdf_router  # ✅ Include PDF routes
 from fastapi.responses import JSONResponse
 from test import find_financial_aid_cost
+
 import pdfplumber
 import io
 
@@ -26,10 +27,11 @@ async def extract_pdf_ai(file: UploadFile = File(...)):
         content = await file.read()
         with pdfplumber.open(io.BytesIO(content)) as pdf:
             full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+
         with open("extracted_pdf_content.txt", "w", encoding="utf-8") as f:
             f.write(full_text)
 
-        summary = find_financial_aid_cost(full_text)
+        summary = find_financial_aid_cost("extracted_pdf_content.txt")
 
         return JSONResponse(content={
             "structured_data": full_text,
